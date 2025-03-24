@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container text-center mt-5 d-flex flex-column align-items-center">
+    <!-- ✅ Logo -->
+    <img src="{% static 'images/logo.png' %}" alt="Fashion Store Logo" class="logo mb-4">
+
+    <h1>Welcome to Fashion Store</h1>
+    <p>Your one-stop shop for the latest trends in fashion.</p>
+
+    <!-- ✅ Login & Signup Buttons (Now Positioned Correctly) -->
+    <div class="mt-4">
+        <a href="{% url 'login' %}" class="btn btn-outline-dark me-2">Log In</a>
+        <a href="{% url 'register' %}" class="btn btn-outline-dark">Sign Up</a>
+    </div>
+</div>
+{% endblock %}
+

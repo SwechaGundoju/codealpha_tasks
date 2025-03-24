@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Sign Up</h2>
+    
+    <!-- ✅ Show Form Errors -->
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- ✅ Preserve username input -->
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Username:</label>
+            <input type="text" name="username" id="id_username" class="form-control"
+                   value="{{ form.username.value|default_if_none:'' }}" 
+                   placeholder="Enter your username"
+                   autocomplete="off" autocorrect="off" spellcheck="false" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_password1" class="form-label">Password:</label>
+            <input type="password" name="password1" id="id_password1" class="form-control"
+                   placeholder="Enter a strong password"
+                   autocomplete="new-password" autocorrect="off" spellcheck="false" required>
+            <ul class="password-guidelines mt-2">
+                <li id="char-count">❌ At least 8 characters</li>
+                <li id="common-pass">❌ Not a common password</li>
+                <li id="num-check">❌ Not entirely numeric</li>
+            </ul>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_password2" class="form-label">Confirm Password:</label>
+            <input type="password" name="password2" id="id_password2" class="form-control"
+                   placeholder="Confirm your password"
+                   autocomplete="new-password" autocorrect="off" spellcheck="false" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+
+<style>
+    .password-guidelines li {
+        list-style: none;
+        font-size: 14px;
+        color: red;
+    }
+    .valid {
+        color: green;
+    }
+</style>
+
+<script>
+    document.getElementById("id_password1").addEventListener("input", function () {
+        var password = this.value;
+
+        // ✅ At least 8 characters
+        document.getElementById("char-count").classList.toggle("valid", password.length >= 8);
+        document.getElementById("char-count").innerHTML = password.length >= 8 ? "✅ At least 8 characters" : "❌ At least 8 characters";
+
+        // ✅ Not a common password (basic check)
+        var commonPasswords = ["password", "12345678", "qwerty", "abcdef"];
+        var isCommon = commonPasswords.includes(password.toLowerCase());
+        document.getElementById("common-pass").classList.toggle("valid", !isCommon);
+        document.getElementById("common-pass").innerHTML = !isCommon ? "✅ Not a common password" : "❌ Not a common password";
+
+        // ✅ Not entirely numeric
+        var isNumeric = /^\d+$/.test(password);
+        document.getElementById("num-check").classList.toggle("valid", !isNumeric);
+        document.getElementById("num-check").innerHTML = !isNumeric ? "✅ Not entirely numeric" : "❌ Not entirely numeric";
+    });
+</script>
+
+{% endblock %}

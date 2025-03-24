@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">My Orders</h2>
+
+    {% if orders %}
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Total Price</th>
+                    <th>Payment Status</th>
+                    <th>Order Date</th>
+                    <th>Delivery Date</th>
+                    <th>Tracking</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>₹{{ order.total_price }}</td>
+                    <td>
+                        {% if order.payment_status == "Paid" %}
+                            <span class="badge bg-success">Paid</span>
+                        {% else %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ order.created_at|date:"F d, Y" }}</td>
+                    <td>
+                        {% if order.estimated_delivery %}
+                            {{ order.estimated_delivery|date:"F d, Y" }}
+                        {% else %}
+                            <span class="text-muted">Not Available</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if order.payment_status == "Pending" %}
+                            <span class="badge bg-danger">Payment Pending</span>
+                        {% elif order.estimated_delivery %}
+                            {% if order.estimated_delivery > today %}
+                                <span class="badge bg-info">On the Way</span>
+                            {% else %}
+                                <span class="badge bg-success">Delivered</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="badge bg-secondary">Processing</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-muted mt-4">No orders yet. Start shopping now!</p>
+        <div class="text-center mt-3">
+            <a href="{% url 'product_list' %}" class="btn btn-primary">Go to Shop</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

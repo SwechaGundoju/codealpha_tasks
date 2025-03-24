@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h2 id="payment-title" class="mt-4">💳 Complete Your Payment</h2>
+    <p class="lead">Order ID: {{ order.id }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ order.total_price }}</p>
+
+    <form id="razorpay-form">
+        <script src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="{{ razorpay_key }}"  
+            data-amount="{{ amount }}"  
+            data-currency="INR"
+            data-order_id="{{ payment.id }}"  
+            data-buttontext="Pay Now"
+            data-name="Fashion Store"
+            data-description="Complete your purchase"
+            data-theme.color="#F37254">
+        </script>
+    </form>
+
+    <p id="payment-success-msg" class="text-success mt-3" style="display: none;">
+        ✅ Payment Successful! Redirecting...
+    </p>
+</div>
+
+<script>
+    var rzp1 = new Razorpay({
+        key: "{{ razorpay_key }}",
+        amount: "{{ amount }}",
+        currency: "INR",
+        order_id: "{{ payment.id }}",
+        name: "Fashion Store",
+        description: "Complete your purchase",
+        theme: { color: "#F37254" },
+        handler: function (response) {
+            // Show success message
+            document.getElementById("payment-title").innerText = "✅ Payment Successful!";
+            document.getElementById("payment-success-msg").style.display = "block";
+
+            // ✅ Send AJAX request with correct order ID
+            fetch("{% url 'payment_success' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ order_id: "{{ order.id }}" })  // ✅ Ensure order ID is sent
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect_url) {
+                    setTimeout(() => {  // ✅ Delay for better experience
+                        window.location.href = data.redirect_url;
+                    }, 2000);
+                } else {
+                    alert("Payment failed. Please try again.");
+                }
+            })
+            .catch(error => console.error("Payment Error:", error));
+        }
+    });
+
+    document.getElementById("razorpay-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        rzp1.open();
+    });
+</script>
+
+{% endblock %}
+

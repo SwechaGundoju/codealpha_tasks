@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <h2 class="mt-4 text-success">🎉 Order Confirmed! 🎉</h2>
+    <p class="lead">Thank you for your purchase, <strong>{{ user_name }}</strong>! Your order has been successfully placed.</p>
+
+    <div class="card shadow-sm p-4">
+        <h4>Order Details</h4>
+        <p><strong>Order ID:</strong> #{{ order.id }}</p>
+        <p><strong>Total Amount:</strong> ₹{{ order.total_price }}</p>
+        <p><strong>Payment Status:</strong> <span class="badge bg-success">{{ order.payment_status }}</span></p>
+        <p><strong>Delivery Date:</strong> 📦 {{ estimated_delivery }}</p>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Continue Shopping 🛍️</a>
+        <a href="{% url 'my_orders' %}" class="btn btn-secondary">View My Orders 📜</a>
+    </div>
+</div>
+{% endblock %}
