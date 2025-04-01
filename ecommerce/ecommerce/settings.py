@@ -9,23 +9,25 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-import os 
+import os
 from pathlib import Path
-from dotenv import load_dotenv  # Load environment variables from .env
+from dotenv import load_dotenv  #  Load environment variables
 
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env file
-dotenv_path = os.path.join(BASE_DIR, ".env")
-load_dotenv(dotenv_path)  # Load .env file before accessing variables
+#  Load environment variables from .env
+dotenv_path = BASE_DIR / ".env"
+load_dotenv(dotenv_path)
 
-# Secret Key & Debug Mode
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
-DEBUG = True  # Set to False in production
+#  Secret Key (Loaded from .env)
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'cxf17kjeqj&4x*^g6#yf&(^e%k6$z5*i)ee8#byb&%=t7q2@49')
 
-# Allowed Hosts
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# Debug Mode (Set to False in Production)
+DEBUG = True  #  Change to False when deploying
+
+#  Allowed Hosts (For Railway Deployment)
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.railway.app']
 
 # Installed Apps
 INSTALLED_APPS = [
@@ -52,33 +54,33 @@ MIDDLEWARE = [
 # Root URL Configuration
 ROOT_URLCONF = 'ecommerce.urls'
 
-# Templates Configuration
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Ensure templates directory is included
-        'APP_DIRS': True,  # Allow Django to find templates inside installed apps
+        'DIRS': [BASE_DIR / 'templates'],  #  Ensure templates directory is included
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media',  # ✅ Added for MEDIA_URL in templates
-                'django.template.context_processors.static',  # ✅ Added for STATIC_URL in templates
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
             ],
         },
     },
 ]
 
-# WSGI Application
+#  WSGI Application
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
-# Database Configuration (Using SQLite for Development)
+#  Database Configuration (SQLite for Development)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -96,17 +98,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# ✅ Static & Media Files (Fixed)
+#  Static & Media Files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "store" / "static"
-    ]  # ✅ Make sure this matches your folder
-
+STATICFILES_DIRS = [BASE_DIR / "store" / "static"]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Razorpay API Keys (Loaded from .env)
+#  Razorpay API Keys (Loaded from .env)
 RAZORPAY_API_KEY = os.getenv('RAZORPAY_API_KEY')
 RAZORPAY_API_SECRET = os.getenv('RAZORPAY_API_SECRET')
 
@@ -118,8 +117,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-# Default Auto Field
+#  Default Auto Field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGOUT_REDIRECT_URL = "/accounts/login/"  # ✅ Redirect to login page after logout
+
+# Logout Redirect URL
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 
