@@ -22,7 +22,7 @@ if dotenv_path:
     load_dotenv(dotenv_path)
 
 # Secret Key (Loaded from .env)
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'cxf17kjeqj&4x*^g6#yf&(^e%k6$z5*i)ee8#byb&%=t7q2@49')
 
 # Debug Mode (Set to False in Production)
 DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Converts env variable to boolean
