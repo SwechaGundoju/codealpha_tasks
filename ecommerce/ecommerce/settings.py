@@ -11,23 +11,27 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-from dotenv import load_dotenv  #  Load environment variables
+from dotenv import load_dotenv, find_dotenv  # Load environment variables
 
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-#  Load environment variables from .env
-dotenv_path = BASE_DIR / ".env"
-load_dotenv(dotenv_path)
+# Load environment variables from .env
+dotenv_path = find_dotenv()
+if dotenv_path:
+    load_dotenv(dotenv_path)
 
-#  Secret Key (Loaded from .env)
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'cxf17kjeqj&4x*^g6#yf&(^e%k6$z5*i)ee8#byb&%=t7q2@49')
+# Secret Key (Loaded from .env)
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
 
 # Debug Mode (Set to False in Production)
-DEBUG = True  #  Change to False when deploying
+DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Converts env variable to boolean
 
-#  Allowed Hosts (For Railway Deployment)
+# Allowed Hosts (For Railway Deployment)
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.railway.app']
+
+# CSRF Trusted Origins (For Railway)
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
 
 # Installed Apps
 INSTALLED_APPS = [
@@ -38,11 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',  # Your e-commerce app
+    'whitenoise.runserver_nostatic',  # WhiteNoise for static files
 ]
 
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Enable WhiteNoise for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,7 +64,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  #  Ensure templates directory is included
+        'DIRS': [BASE_DIR / 'templates'],  # Ensure templates directory is included
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,10 +79,10 @@ TEMPLATES = [
     },
 ]
 
-#  WSGI Application
+# WSGI Application
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
-#  Database Configuration (SQLite for Development)
+# Database Configuration (SQLite)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -98,14 +104,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-#  Static & Media Files
+# Static & Media Files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "store" / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Required for Deployment
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-#  Razorpay API Keys (Loaded from .env)
+# Razorpay API Keys (Loaded from .env)
 RAZORPAY_API_KEY = os.getenv('RAZORPAY_API_KEY')
 RAZORPAY_API_SECRET = os.getenv('RAZORPAY_API_SECRET')
 
@@ -117,10 +124,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-#  Default Auto Field
+# Default Auto Field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Logout Redirect URL
 LOGOUT_REDIRECT_URL = "/accounts/login/"
-
-
