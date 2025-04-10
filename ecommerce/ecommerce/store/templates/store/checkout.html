@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Checkout</h2>
+
+    <!-- ✅ Display Success & Error Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" id="name" name="name" class="form-control"
+                   value="{{ user.get_full_name }}" required
+                   autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control"
+                   value="{{ user.email }}" required
+                   autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <h4 class="fw-bold">Total Price: ₹{{ total_price }}</h4>
+
+        <button type="submit" class="btn btn-success">Place Order</button>
+    </form>
+</div>
+
+<!-- ✅ JavaScript to Clear Messages After a Few Seconds -->
+<script>
+    setTimeout(function() {
+        let alerts = document.querySelectorAll(".alert");
+        alerts.forEach(alert => alert.style.display = "none");
+    }, 3000); // Hide messages after 3 seconds
+</script>
+
+{% endblock %}

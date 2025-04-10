@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}  <!-- ✅ Load static files -->
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-lg" style="width: 400px;">
+        <h2 class="text-center mb-4">Login</h2>
+        
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Invalid username or password. Please try again.</strong>
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input type="text" name="username" id="id_username" class="form-control"
+                       placeholder="Enter your username"
+                       autocomplete="off" autocorrect="off" spellcheck="false" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Password</label>
+                <input type="password" name="password" id="id_password" class="form-control"
+                       placeholder="Enter your password"
+                       autocomplete="current-password" autocorrect="off" spellcheck="false" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a href="{% url 'register' %}" class="text-decoration-none">Sign Up</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
