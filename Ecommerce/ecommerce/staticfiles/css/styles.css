@@ -1,0 +1,467 @@
+/* ✅ Custom Navbar Styles */
+/* ✅ Ensure scrolling works properly */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* ✅ Hide scrollbar but allow scrolling */
+body::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari */
+}
+body {
+    -ms-overflow-style: none; /* Hide scrollbar in IE, Edge */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+
+/* ✅ Wrapper ensures full height */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures footer stays at the bottom */
+}
+
+/* ✅ Navbar fixed */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* ✅ Main Content: Allows scrolling in the product list */
+.main-content {
+    flex: 1;
+    padding-top: 80px; /* Prevents navbar from covering content */
+    overflow-y: auto; /* Allow scrolling in the main section */
+    min-height: calc(100vh - 120px); /* Adjust based on navbar & footer */
+}
+
+/* ✅ Footer stays at the bottom */
+.footer {
+    background-color: #212529;
+    color: white;
+    text-align: center;
+    padding: 10px 0; /* Adjust padding */
+    font-size: 14px; /* Adjust text size */
+    margin-top: auto; /* Push footer to the bottom */
+    height: 50px; /* Reduce height */
+    line-height: 50px; /* Center text vertically */
+}
+
+/* Fix Navbar Height */
+.navbar {
+    height: 90px; /* Reduce height */
+    display: flex;
+    align-items: center; /* Center text */
+}
+
+/* ✅ Ensure navbar links are vertically aligned */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    height: 100%; /* Make sure it takes full navbar height */
+}
+
+/* ✅ Center the brand/logo text */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* ✅ Center nav links */
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+/* ✅ Fix buttons inside navbar */
+.navbar .btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+/* Fix Footer Position */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.navbar {
+    background-color: #343a40;  /* Dark background */
+    padding: 15px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100000;
+}
+
+.navbar-brand {
+  
+    font-weight: bold;
+    color: #ffffff !important;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    transition: 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+}
+
+
+/* ✅ Navbar Active Link */
+.navbar-nav .nav-item.active .nav-link {
+    font-weight: bold;
+    border-bottom: 2px solid #ffffff;
+}
+.logo {
+    display: block;
+    margin: 20px auto;
+    max-width: 700px;
+    
+}
+.container {
+    overflow: hidden;
+}
+.logo-container {
+    position: fixed;
+    top: 80px; /* Adjust based on navbar height */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+
+/* Center the login card */
+.card {
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the login button */
+.btn-primary {
+    background: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+/* Input field focus effect */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+/* ✅ Search Bar Styling */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-container input:focus {
+    border-color: #0056b3;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+}
+
+.search-container button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-left: 8px;
+}
+
+.search-container button:hover {
+    background-color: #0056b3;
+}
+/* ✅ Ensure Cards Have Equal Heights */
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 280px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    height: 100%; /* Ensures all cards take full height */
+}
+
+/* ✅ Ensure all images are the same size */
+.product-card img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* ✅ Fix title height so all titles take equal space */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-height: 50px; /* ✅ Ensures all titles have same space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ✅ Ensure card text and buttons are aligned */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    text-align: center;
+}
+
+/* ✅ Fix Add to Cart Button Position */
+.card-body .btn {
+    margin-top: auto;
+}
+
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* ✅ Ensure All Product Images Are the Same Size */
+.product-card img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Crop images to fit */
+    border-radius: 5px;
+}
+
+/* ✅ Ensure Buttons Stay at the Bottom */
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    text-align: center;
+}
+
+/* ✅ Search Bar */
+form.d-flex input {
+    max-width: 400px;
+}
+
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #218838;
+}
+.card {
+    width: 100%;
+    max-width: 450px; /* Adjust for desired card size */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* ✅ Ensure all images fit properly without being cropped */
+.card img {
+    width: 100%;
+    height: 300px; /* Set a fixed height */
+    object-fit: contain; /* Ensures images fill the space properly */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* ✅ Make all card content align evenly */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1; /* Ensures all card bodies are the same height */
+    text-align: center;
+}
+
+/* ✅ Adjust button positioning to bottom */
+.card-body .btn {
+    margin-top: auto; /* Pushes the button to the bottom */
+}
+/* ✅ Cart Page Styling */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding-top: 20px;
+}
+
+/* ✅ Cart Table */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+/* ✅ Product Image */
+.cart-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* ✅ Quantity Input */
+.quantity-input {
+    width: 70px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* ✅ Buttons */
+.btn-success, .btn-danger {
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* ✅ Checkout Button */
+.checkout-btn {
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+
+}
+.btn-primary{
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+
+}
+
+.checkout-btn:hover {
+    background-color: #0056b3;
+}
+.navbar {
+    background-color: #212529 !important; /* Dark background */
+    padding: 15px;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-size: 1rem;
+}
+
+.navbar-toggler {
+    border-color: white;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+}
+.navbar .btn {
+    color: white !important;
+    border: 1px solid white;
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
+.navbar .btn:disabled {
+    opacity: 1 !important;
+    color: white !important;
+    cursor: not-allowed;
+}
